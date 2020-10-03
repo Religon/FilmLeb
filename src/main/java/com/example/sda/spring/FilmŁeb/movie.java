@@ -1,8 +1,11 @@
 package com.example.sda.spring.FilmŁeb;
 
+import java.beans.ConstructorProperties;
+
 public class Movie {
     private String title;
 
+    @ConstructorProperties({"title"})
     public Movie(String title) {
         this.title = title;
     }
