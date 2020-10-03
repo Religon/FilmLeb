@@ -10,9 +10,9 @@ import java.awt.*;
 @RestController
 public class task02contoller {
 
-    @GetMapping(path = "/task02", produces = MediaType.APPLICATION_PROBLEM_XML_VALUE)
+    @GetMapping
     public String task02(){
-        Animal animal = new Animal("pies", 3);
+        Animal animal = new Animal("(path = \"/task02\", produces = MediaType.APPLICATION_PROBLEM_XML_VALUE)es", 3);
         return animal.getName() + " " + animal.getAge();
     }
 }

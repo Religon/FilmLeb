@@ -1,27 +1,25 @@
 package com.example.sda.spring.FilmŁeb;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MovieController {
-    @PostMapping("/createNewMovie")
+    @PostMapping("/addMovie")
     @ResponseBody
-    public String createNewMovie(){
-        return null;
+    public Movie addMovie(@RequestBody Movie movie){
+        return movie;
     }
 
-    @GetMapping(path = "/getId")
+    @GetMapping(path = "/getId", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE )
     public String getId(){
       return null;
     }
 
-    @GetMapping(path = "/getAll")
+    @GetMapping(path = "/getAll", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
     public String getAll(){
-        return null;
+        Movie movie = new Movie("(path = \"/getAll\",MediaType.APPLICATION_PROBLEM_JSON_VALUE)");
+        return movie.getTitle();
     }
 
     @GetMapping(path = "/deleteMovie")
