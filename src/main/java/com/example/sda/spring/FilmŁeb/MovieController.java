@@ -1,33 +1,42 @@
 package com.example.sda.spring.FilmŁeb;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Scanner;
+import java.util.List;
 
 @RestController
 public class MovieController {
 
-    @PostMapping("/addMovie")
+    @Autowired
+    private MovieRepository movieRepository;
+
+    @PostMapping("/movies")
     public Movie addMovie(@RequestBody Movie movie){
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(MovieRepository.class);
-        movie = ctx.getBean(Movie.class);
+        movieRepository.addNewMovie(movie);
         return movie;
     }
 
-    @GetMapping(path = "/getId", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE )
-    public String getId(){
-      return null;
+    @GetMapping(path = "/movies", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE )
+    public String getId(@RequestBody Integer key){
+        return movieRepository.getMovie(key);
     }
 
-    @GetMapping(path = "/getAll", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
-    public String getAll(){
-        return null;
+    @GetMapping(path = "/movies", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
+    public List<String> getAll(){
+        return movieRepository.getAllMovie();
     }
 
-    @GetMapping(path = "/deleteMovie")
-    public void delete(){
+    @PostMapping("/movies")
+    public void updateMovie(@RequestBody Integer key, @RequestBody Movie movie){
+        movieRepository.updateMovieList(key, movie);
+        getAll();
+    }
+
+
+    @GetMapping(path = "/movies")
+    public void delete(@RequestBody Integer key){
+        movieRepository.deleteMovie(key);
     }
 }

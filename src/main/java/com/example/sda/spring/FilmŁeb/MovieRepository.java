@@ -1,42 +1,45 @@
 package com.example.sda.spring.FilmŁeb;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
-@Configuration
 public class MovieRepository {
 
-    private List<Movie> movieList = new ArrayList<>();
+    private Map<Integer, Movie> movieList = new TreeMap<>();
 
     //C
-    @Bean
     public void addNewMovie(Movie movie){
-        movieList.add(movie);
+        Random generator = new Random();
+        movieList.put(generator.nextInt(100),movie);
     }
 
     //R
-    @Bean
-    public void getAllMovie() {
-        System.out.println("Lista filmów: ");
-        movieList.forEach(System.out::println);
-        System.out.println();
+    public List<String> getAllMovie() {
+        Set<Map.Entry<Integer, Movie>> entrySet = movieList.entrySet();
+        List<String> list = new ArrayList<>();
+        for(Map.Entry<Integer, Movie> entry: entrySet) {
+            list.add(entry.getKey() + " : " + entry.getValue());
+        }
+        return list;
+    }
+
+    public String getMovie(Integer key){
+        Set<Map.Entry<Integer, Movie>> entrySet = movieList.entrySet();
+        for(Map.Entry<Integer, Movie> entry: entrySet) {
+            if(key == entry.getKey()){
+                return entry.getValue().getTitle();
+            }
+        }
+       return null;
+    }
+
+    //U
+    public void updateMovieList(Integer key, Movie movie){
+        movieList.put(key, movie);
     }
 
     //D
-    @Bean
-    public void deleteMovie(String title){
-    }
-
-    @Bean
-    public List<Movie> getMovieList() {
-        return movieList;
-    }
-
-    @Bean
-    public void setMovieList(List<Movie> movieList) {
-        this.movieList = movieList;
+    public void deleteMovie(Integer key){
+        movieList.remove(key);
     }
 }

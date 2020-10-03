@@ -6,8 +6,7 @@ public class Movie {
     private String title;
 
     @ConstructorProperties({"title"})
-    public Movie(String title) {
-        this.title = title;
+    public Movie() {
     }
 
     public String getTitle() {
