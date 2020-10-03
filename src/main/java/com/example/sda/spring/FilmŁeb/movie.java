@@ -14,4 +14,9 @@ public class Movie {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    @Override
+    public String toString() {
+        return "Movie: " + title;
+    }
 }
