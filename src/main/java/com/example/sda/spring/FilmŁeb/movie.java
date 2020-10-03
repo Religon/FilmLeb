@@ -1,9 +1,9 @@
 package com.example.sda.spring.FilmŁeb;
 
-public class movie {
+public class Movie {
     private String title;
 
-    public movie(String title) {
+    public Movie(String title) {
         this.title = title;
     }
 
