@@ -15,26 +15,21 @@ public class MovieController {
 
     //POST  {"title": "abra"}
     @PostMapping("/addMovies")
-    public String  addMovie(@RequestBody Movie movie){
-        return movieRepository.addNewMovie(movie);
+    public void   addMovie(@RequestBody Movie movie) throws ConflictException {
+            movieRepository.addNewMovie(movie);
     }
 
     //GET
 
     @GetMapping(path = "/getMovie/{key}", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE )
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String getId(@PathVariable("key") Integer key) throws notFoundException {
-        if(movieRepository.getMovie(key) == null){
-            throw new notFoundException("404 (Not Found)");
-        }else {
-            return movieRepository.getMovie(key);
-        }
+    public String getId(@PathVariable("key") Integer key){
+        return movieRepository.getMovie(key);
     }
 
     //GET
     @GetMapping(path = "/getMovies", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public List<String> getAll() throws notFoundException {
+    public List<String> getAll(){
             return movieRepository.getAllMovie();
     }
 
@@ -53,8 +48,11 @@ public class MovieController {
         movieRepository.deleteMovie(key);
     }
 
-    private class notFoundException extends Throwable {
-        public notFoundException(String message) {
-        }
+
+    //HttpStatus
+    @ResponseStatus(value=HttpStatus.CONFLICT)  // 409
+    @ExceptionHandler(ConflictException.class)
+    public void conflict() {
     }
+
 }

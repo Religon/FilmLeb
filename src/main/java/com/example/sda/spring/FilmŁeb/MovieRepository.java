@@ -6,18 +6,17 @@ import java.util.*;
 public class MovieRepository {
 
     private Map<Integer, Movie> movieList = new TreeMap<>();
+    private Integer count = 0;
 
     //C
-    public String  addNewMovie(Movie movie){
-        Set<Map.Entry<Integer, Movie>> entrySet = movieList.entrySet();
-        for(Map.Entry<Integer, Movie> entry: entrySet) {
-            if(entry.getValue().equals(movie.getTitle())){
-                return "conflict";
+    public void addNewMovie(Movie movie) throws ConflictException {
+        Collection<Movie> entrySet = movieList.values();
+        for(Movie entry: entrySet) {
+            if(entry.getTitle().equals(movie.getTitle())){
+                throw new ConflictException();
             }
         }
-        Random generator = new Random();
-        movieList.put(generator.nextInt(100),movie);
-        return "ok";
+        movieList.put(++count,movie);
     }
 
     //R
@@ -37,7 +36,7 @@ public class MovieRepository {
                 return entry.getValue().getTitle();
             }
         }
-       return null;
+       return "404 - (not found)";
     }
 
     //U
