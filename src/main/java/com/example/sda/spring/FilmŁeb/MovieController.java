@@ -12,31 +12,35 @@ public class MovieController {
     @Autowired
     private MovieRepository movieRepository;
 
-    @PostMapping("/movies")
+    //POST  {"title": "abra"}
+    @PostMapping("/addMovies")
     public Movie addMovie(@RequestBody Movie movie){
         movieRepository.addNewMovie(movie);
         return movie;
     }
 
-    @GetMapping(path = "/movies", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE )
-    public String getId(@RequestBody Integer key){
+    //GET
+    @GetMapping(path = "/getMovie/{key}", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE )
+    public String getId(@PathVariable("key") Integer key){
         return movieRepository.getMovie(key);
     }
 
-    @GetMapping(path = "/movies", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
+    //GET
+    @GetMapping(path = "/getMovies", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
     public List<String> getAll(){
         return movieRepository.getAllMovie();
     }
 
-    @PostMapping("/movies")
-    public void updateMovie(@RequestBody Integer key, @RequestBody Movie movie){
+    //PUT
+    @PutMapping("/updateMovies/{key}")
+    public List<String> updateMovie(@PathVariable("key") Integer key, @RequestBody Movie movie){
         movieRepository.updateMovieList(key, movie);
-        getAll();
+        return movieRepository.getAllMovie();
     }
 
-
-    @GetMapping(path = "/movies")
-    public void delete(@RequestBody Integer key){
+    //DELETE
+    @DeleteMapping(path = "/deleteMovies/{key}")
+    public void delete(@PathVariable("key") Integer key){
         movieRepository.deleteMovie(key);
     }
 }
