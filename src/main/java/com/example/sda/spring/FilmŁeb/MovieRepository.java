@@ -8,9 +8,16 @@ public class MovieRepository {
     private Map<Integer, Movie> movieList = new TreeMap<>();
 
     //C
-    public void addNewMovie(Movie movie){
+    public String  addNewMovie(Movie movie){
+        Set<Map.Entry<Integer, Movie>> entrySet = movieList.entrySet();
+        for(Map.Entry<Integer, Movie> entry: entrySet) {
+            if(entry.getValue().equals(movie.getTitle())){
+                return "conflict";
+            }
+        }
         Random generator = new Random();
         movieList.put(generator.nextInt(100),movie);
+        return "ok";
     }
 
     //R
