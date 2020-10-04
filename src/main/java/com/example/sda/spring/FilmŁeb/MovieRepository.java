@@ -9,7 +9,7 @@ public class MovieRepository {
     private Integer count = 0;
 
     //C
-    public void addNewMovie(Movie movie) throws ConflictException {
+    public void addNewMovie(Movie movie) throws ConflictException, CreatedException {
         Collection<Movie> entrySet = movieList.values();
         for(Movie entry: entrySet) {
             if(entry.getTitle().equals(movie.getTitle())){
@@ -17,6 +17,7 @@ public class MovieRepository {
             }
         }
         movieList.put(++count,movie);
+        throw new CreatedException();
     }
 
     //R
@@ -29,14 +30,14 @@ public class MovieRepository {
         return list;
     }
 
-    public String getMovie(Integer key){
+    public String getMovie(Integer key) throws NotFoundException {
         Set<Map.Entry<Integer, Movie>> entrySet = movieList.entrySet();
         for(Map.Entry<Integer, Movie> entry: entrySet) {
-            if(key == entry.getKey()){
+            if(key.equals(entry.getKey())){
                 return entry.getValue().getTitle();
             }
         }
-       return "404 - (not found)";
+        throw new NotFoundException();
     }
 
     //U

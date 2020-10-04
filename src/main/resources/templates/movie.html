@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FilmLeb</title>
+</head>
+<body>
+<tbody>
+    <form action="#" th:action="@{/addMovies}" th:object="${movie}" method="post">
+        <table border="1">
+            <tr>
+                <td><label th:text="#{msg.name}" /></td>
+                <td><input type="text" th:field="*{title}" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+    <tr th:each="movie: ${movie}">
+        <td th:text="${movie.title}" />
+    </tr>
+</tbody>
+</body>
+</html>

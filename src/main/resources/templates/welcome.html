@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+</head>
+<body>
+    <p th:text="${helloMsg}"></p>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <button class="btn btn-dark">Hello From Bootstrap</button>
+
+    <form action="/some/relative/url" method="post">
+        <label for="welcome">Przywitaj się: </label>
+        <input type="text" name="welcome" id="welcome" />
+
+        <label for="termsOfUse">Zgadzam się że SDA jest najlepsze</label>
+        <input type="checkbox" name="termsOfUse" id="termsOfUse">
+
+        <div>
+            <label for="opt1">Opcja 1</label>
+            <input name="opt" id="opt1" type="radio">
+            <label for="opt2">Opcja 2</label>
+            <input name="opt" id="opt2" type="radio">
+            <label for="opt3">Opcja 3</label>
+            <input name="opt" id="opt3" type="radio">
+        </div>
+
+        <label for="startDate">Rozpoczęcie kursu</label>
+        <input type="date" name="startDate" id="startDate">
+
+        <label for="age">Twój wiek w pełnych latach</label>
+        <input type="number" name="age" id="age">
+
+        <label for="fileUpload">CV:</label>
+        <input type="file" name="fileUpload" id="fileUpload">
+
+        <button type="submit">Wyślij swoje wybory życiowe</button>
+    </form>
+
+
+</body>
+</html>
